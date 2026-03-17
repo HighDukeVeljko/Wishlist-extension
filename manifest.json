@@ -1,30 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Wishlist Extension",
+  "name": "Shopping List",
   "version": "1.0",
-  "description": "Wishlist management for Firefox.",
-  "permissions": [
-    "storage",
-    "activeTab",
-    "scripting"
-  ],
+  "description": "Save URLs to a categorized shopping list.",
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "WishList"
+    "default_popup": "popup.html"
   },
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "run_at": "document_end"
-    }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "wishlist-test@example.com"
-    }
-  }
+  "permissions": ["tabs", "storage"]
 }
