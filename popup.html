@@ -1,109 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wishlist Extension</title>
-  <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>🛍️ My Wishlist</h1>
-      <button id="addProductBtn" class="btn btn-primary">+ Add Product</button>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shopping List</title>
 
-    <!-- Add Product Modal -->
-    <div id="addProductModal" class="modal hidden">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Add Product to Wishlist</h2>
-        <form id="addProductForm">
-          <div class="form-group">
-            <label for="productName">Product Name *</label>
-            <input type="text" id="productName" required placeholder="e.g., Blue Running Shoes">
-          </div>
+    <!-- Font Awesome: provides the trash icon used on each delete button -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-          <div class="form-group">
-            <label for="productPrice">Price *</label>
-            <input type="number" id="productPrice" required placeholder="e.g., 99.99" step="0.01" min="0">
-          </div>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
 
-          <div class="form-group">
-            <label for="productCurrency">Currency</label>
-            <select id="productCurrency">
-              <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
-              <option value="GBP">GBP (£)</option>
-              <option value="INR">INR (₹)</option>
-              <option value="AUD">AUD (A$)</option>
-            </select>
-          </div>
+    <h2>🛒 Shopping List</h2>
 
-          <div class="form-group">
-            <label for="productLink">Product Link *</label>
-            <input type="url" id="productLink" required placeholder="https://example.com/product">
-          </div>
-
-          <div class="form-group">
-            <label for="productSite">Website Name *</label>
-            <input type="text" id="productSite" required placeholder="e.g., Amazon">
-          </div>
-
-          <div class="form-group">
-            <label for="productImage">Image URL</label>
-            <input type="url" id="productImage" placeholder="https://example.com/image.jpg">
-            <div id="imagePreview" class="image-preview hidden"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="productNotes">Notes</label>
-            <textarea id="productNotes" placeholder="Any additional notes..."></textarea>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Add to Wishlist</button>
-            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
-          </div>
-        </form>
-      </div>
+    <!-- ------------------------------------------------------------------ -->
+    <!-- PREVIEW BOX                                                         -->
+    <!-- Shows the current tab's truncated title so the user knows exactly  -->
+    <!-- which item they are about to save before picking a category.        -->
+    <!-- ------------------------------------------------------------------ -->
+    <div id="preview-box">
+      <p class="preview-label">Item Preview:</p>
+      <p id="preview-title">Loading...</p>
     </div>
 
-    <!-- Wishlist Stats -->
-    <div id="statsContainer" class="stats-container hidden">
-      <div class="stat">
-        <span class="stat-label">Total Items:</span>
-        <span id="totalItems" class="stat-value">0</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Total Price:</span>
-        <span id="totalPrice" class="stat-value">$0.00</span>
-      </div>
-    </div>
+    <!-- ------------------------------------------------------------------ -->
+    <!-- CONTROLS                                                            -->
+    <!-- ------------------------------------------------------------------ -->
+    <label for="category">Category:</label>
+    <select id="category">
+      <option value="Books">📚 Books</option>
+      <option value="Clothes">👗 Clothes</option>
+      <option value="Shoes">👟 Shoes</option>
+      <option value="Electronics">💻 Electronics</option>
+      <option value="Pets">🐾 Pets</option>
+      <option value="Health">💊 Health</option>
+    </select>
 
-    <!-- Wishlist Items -->
-    <div id="wishlistContainer" class="wishlist-container">
-      <div id="emptyState" class="empty-state">
-        <p>Your wishlist is empty</p>
-        <p>Click "Add Product" to get started!</p>
-      </div>
-      <div id="itemsList" class="items-list"></div>
-    </div>
+    <button id="save-btn">Save Item</button>
 
-    <!-- Filter/Sort Options -->
-    <div id="controlsContainer" class="controls hidden">
-      <select id="sortBy" class="sort-select">
-        <option value="date-desc">Newest First</option>
-        <option value="date-asc">Oldest First</option>
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
-        <option value="name-asc">Name: A to Z</option>
-      </select>
-      <button id="exportBtn" class="btn btn-secondary btn-small">Export</button>
-      <button id="clearAllBtn" class="btn btn-danger btn-small">Clear All</button>
-    </div>
-  </div>
+    <!-- ------------------------------------------------------------------ -->
+    <!-- CATEGORISED LIST CONTAINER                                          -->
+    <!-- popup.js dynamically injects one .category-section per category    -->
+    <!-- that has at least one saved item. Empty categories are hidden.      -->
+    <!-- ------------------------------------------------------------------ -->
+    <div id="categories-container"></div>
 
-  <script src="popup.js"></script>
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>
